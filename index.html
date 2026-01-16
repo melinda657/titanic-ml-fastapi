@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi Survival Penumpang Titanic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .bg-gradient-custom { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .result-card { transition: all 0.3s ease; }
+        .result-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="bg-gradient-custom min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-white mb-2">
+                <i class="fas fa-ship mr-3"></i>Prediksi Survival Penumpang Titanic
+            </h1>
+            <p class="text-white/80">Masukkan detail penumpang untuk mendapatkan prediksi apakah selamat atau tidak</p>
+        </header>
+
+        <div class="max-w-2xl mx-auto">
+            <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+                <div class="bg-blue-600 p-6">
+                    <h2 class="text-2xl font-semibold text-white text-center">
+                        <i class="fas fa-search mr-2"></i>Form Prediksi
+                    </h2>
+                    <p class="text-blue-100 text-center mt-2 text-sm">
+                        Masukkan detail penumpang Titanic untuk prediksi survival.
+                    </p>
+                </div>
+
+                <form id="passengerForm" class="p-8 space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label for="name" class="block text-gray-700 font-medium">
+                                <i class="fas fa-user mr-2 text-blue-600"></i>Nama Penumpang
+                            </label>
+                            <input type="text" id="name" name="name" required
+                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
+                                   placeholder="Contoh: John Doe">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="pclass" class="block text-gray-700 font-medium">
+                                <i class="fas fa-star mr-2 text-blue-600"></i>Kelas (Pclass)
+                            </label>
+                            <select id="pclass" name="pclass" required
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors">
+                                <option value="">Pilih Kelas</option>
+                                <option value="1">1 - First Class</option>
+                                <option value="2">2 - Second Class</option>
+                                <option value="3">3 - Third Class</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label for="sex" class="block text-gray-700 font-medium">
+                                <i class="fas fa-venus-mars mr-2 text-blue-600"></i>Jenis Kelamin
+                            </label>
+                            <select id="sex" name="sex" required
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors">
+                                <option value="">Pilih Jenis Kelamin</option>
+                                <option value="male">Laki-laki</option>
+                                <option value="female">Perempuan</option>
+                            </select>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="age" class="block text-gray-700 font-medium">
+                                <i class="fas fa-birthday-cake mr-2 text-blue-600"></i>Usia
+                            </label>
+                            <input type="number" id="age" name="age" required step="0.1" min="0"
+                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
+                                   placeholder="Contoh: 25">
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label for="sibsp" class="block text-gray-700 font-medium">
+                                <i class="fas fa-users mr-2 text-blue-600"></i>Jumlah Saudara/Keluarga di Kapal (SibSp)
+                            </label>
+                            <input type="number" id="sibsp" name="sibsp" required min="0"
+                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
+                                   placeholder="Contoh: 1">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="parch" class="block text-gray-700 font-medium">
+                                <i class="fas fa-child mr-2 text-blue-600"></i>Jumlah Orang Tua/Anak (Parch)
+                            </label>
+                            <input type="number" id="parch" name="parch" required min="0"
+                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
+                                   placeholder="Contoh: 0">
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label for="fare" class="block text-gray-700 font-medium">
+                                <i class="fas fa-dollar-sign mr-2 text-blue-600"></i>Tarif (Fare)
+                            </label>
+                            <input type="number" id="fare" name="fare" required step="0.01" min="0"
+                                   class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors"
+                                   placeholder="Contoh: 7.25">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="embarked" class="block text-gray-700 font-medium">
+                                <i class="fas fa-anchor mr-2 text-blue-600"></i>Pelabuhan Keberangkatan (Embarked)
+                            </label>
+                            <select id="embarked" name="embarked" required
+                                    class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none transition-colors">
+                                <option value="">Pilih Pelabuhan</option>
+                                <option value="C">C - Cherbourg</option>
+                                <option value="Q">Q - Queenstown</option>
+                                <option value="S">S - Southampton</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button type="submit"
+                            class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 font-semibold text-lg shadow-lg">
+                        <i class="fas fa-brain mr-2"></i>Prediksi Survival
+                    </button>
+                </form>
+
+                <div class="result px-8 pb-8" id="result"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('passengerForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            // Ambil nilai dari form
+            const name = document.getElementById('name').value;
+            const pclass = parseInt(document.getElementById('pclass').value);
+            const sex = document.getElementById('sex').value;
+            const age = parseFloat(document.getElementById('age').value);
+            const sibsp = parseInt(document.getElementById('sibsp').value);
+            const parch = parseInt(document.getElementById('parch').value);
+            const fare = parseFloat(document.getElementById('fare').value);
+            const embarked = document.getElementById('embarked').value;
+
+            // Tampilkan loading
+            document.getElementById('result').innerHTML = `
+                <div class="text-center py-8">
+                    <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+                    <p class="mt-4 text-gray-600">Memproses prediksi...</p>
+                </div>
+            `;
+
+            try {
+                // Kirim POST request ke server lokal
+                const response = await fetch('http://localhost:8000/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        pclass: pclass,
+                        sex: sex,
+                        age: age,
+                        sibsp: sibsp,
+                        parch: parch,
+                        fare: fare,
+                        embarked: embarked,
+                    }),
+                });
+
+                // Periksa apakah response berhasil
+                if (response.ok) {
+                    const result = await response.json();
+
+                    // Tentukan warna berdasarkan kategori
+                    const survivalColors = {
+                        'Selamat': 'bg-green-500',
+                        'Tidak Selamat': 'bg-red-500'
+                    };
+
+                    const colorClass = survivalColors[result.predicted_survival] || 'bg-gray-500';
+
+                    // Buat HTML hasil
+                    let resultHTML = `
+                        <div class="result-card bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 border-2 border-blue-200">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-16 h-16 ${colorClass} rounded-full mb-4">
+                                    <i class="fas fa-life-ring text-white text-2xl"></i>
+                                </div>
+                                <h3 class="text-2xl font-bold text-gray-800 mb-2">Hasil Prediksi Survival</h3>
+                                <div class="inline-block px-6 py-3 ${colorClass} text-white rounded-full text-lg font-semibold">
+                                    ${result.predicted_survival}
+                                </div>
+                            </div>
+
+                            <div class="space-y-4">
+                                <h4 class="text-lg font-semibold text-gray-700 mb-4">
+                                    <i class="fas fa-chart-pie mr-2"></i>Probabilitas Survival
+                                </h4>`;
+
+                    for (const [category, prob] of Object.entries(result.prediction_probabilities)) {
+                        const percentage = (prob * 100).toFixed(1);
+                        const barColor = survivalColors[category] || 'bg-gray-400';
+                        resultHTML += `
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm font-medium">
+                                    <span>${category}</span>
+                                    <span>${percentage}%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div class="${barColor} h-3 rounded-full transition-all duration-1000 ease-out" style="width: ${percentage}%"></div>
+                                </div>
+                            </div>`;
+                    }
+
+                    resultHTML += `
+                            </div>
+                        </div>`;
+
+                    document.getElementById('result').innerHTML = resultHTML;
+                } else {
+                    // Tangani response yang tidak berhasil
+                    document.getElementById('result').innerHTML = `
+                        <div class="bg-red-50 border-2 border-red-200 rounded-xl p-6 text-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 text-3xl mb-4"></i>
+                            <p class="text-red-700 font-semibold">Error: ${response.statusText}</p>
+                        </div>`;
+                }
+            } catch (error) {
+                // Tangani error jaringan
+                document.getElementById('result').innerHTML = `
+                    <div class="bg-red-50 border-2 border-red-200 rounded-xl p-6 text-center">
+                        <i class="fas fa-wifi-slash text-red-500 text-3xl mb-4"></i>
+                        <p class="text-red-700 font-semibold">Error: Tidak dapat terhubung ke server.</p>
+                        <p class="text-red-600 text-sm mt-2">Pastikan server berjalan di http://localhost:8000</p>
+                    </div>`;
+            }
+        });
+    </script>
+</body>
+</html>
